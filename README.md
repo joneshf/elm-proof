@@ -8,7 +8,7 @@ A library for writing and verifying proofs in elm programs.
 
 ## Example
 
-**tl;dr** There's a more fleshed out example in the repo: [permissions][]
+**tl;dr** There's a more fleshed out example in the repo with subscriptions and commands and whatnot: [permissions][]
 
 We can motivate this library by stealing the example from [elm-proxy][].
 We've got different permission levels in our program that we want to enforce:
