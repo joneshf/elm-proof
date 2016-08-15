@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "summary": "Prove properties about elm programs at compile-time.",
+    "repository": "https://github.com/joneshf/elm-proof.git",
+    "license": "BSD3",
+    "source-directories": [
+        "src"
+    ],
+    "exposed-modules": [
+        "Equivalence",
+        "Don't.Worry.I.Know.What.I'm.Doing"
+    ],
+    "dependencies": {
+        "elm-lang/core": "4.0.5 <= v < 5.0.0"
+    },
+    "elm-version": "0.17.1 <= v < 0.18.0"
+}
