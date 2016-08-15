@@ -423,6 +423,6 @@ viewAdmin Delete =
 
 [elm-proxy]: http://package.elm-lang.org/packages/joneshf/elm-proxy/latest
 [Proxy]: http://package.elm-lang.org/packages/joneshf/elm-proxy/latest/Proxy#Proxy
-[permissions]: https://github.com/joneshf/elm-proof/examples/permissions
+[permissions]: https://github.com/joneshf/elm-proof/tree/master/examples/permissions
 [refl]: http://package.elm-lang.org/packages/joneshf/elm-proof/latest/Equivalence#refl
 [reproxy]: http://package.elm-lang.org/packages/joneshf/elm-proxy/latest/Proxy#reproxy
