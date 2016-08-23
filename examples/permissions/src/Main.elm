@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.App
 
-import Equivalence exposing (..)
+import Equality exposing (..)
 import Permissions.Admin as Admin exposing (Admin)
 import Permissions.Mod as Mod exposing (Mod)
 import Permissions.User as User exposing (User)
@@ -23,19 +23,19 @@ main =
 subscriptions : Model permissions -> Sub permissions
 subscriptions model =
   case model of
-    ModelUser (_, from) _ ->
-      Sub.map from User.subscriptions
-    ModelMod (_, from) _ ->
-      Sub.map from Mod.subscriptions
-    ModelAdmin (_, from) _ ->
-      Sub.map from Admin.subscriptions
+    ModelUser proof _ ->
+      Sub.map (symmCast proof) User.subscriptions
+    ModelMod proof _ ->
+      Sub.map (symmCast proof) Mod.subscriptions
+    ModelAdmin proof _ ->
+      Sub.map (symmCast proof) Admin.subscriptions
 
 -- Model
 
 type Model permissions
-  = ModelUser (Equiv permissions User) { name : String }
-  | ModelMod (Equiv permissions Mod) { name : String }
-  | ModelAdmin (Equiv permissions Admin) { name : String }
+  = ModelUser (Equal permissions User) { name : String }
+  | ModelMod (Equal permissions Mod) { name : String }
+  | ModelAdmin (Equal permissions Admin) { name : String }
 
 modelUser : String -> Model User
 modelUser name =
@@ -54,14 +54,14 @@ modelAdmin name =
 update : permissions -> Model permissions -> (Model permissions, Cmd permissions)
 update perms model =
   case model of
-    ModelUser (to, from) _ ->
-      model ! [Cmd.map from (User.commands (to perms))]
+    ModelUser proof _ ->
+      model ! [Cmd.map (symmCast proof) (User.commands (cast proof perms))]
 
-    ModelMod (to, from) _ ->
-      model ! [Cmd.map from (Mod.commands (to perms))]
+    ModelMod proof _ ->
+      model ! [Cmd.map (symmCast proof) (Mod.commands (cast proof perms))]
 
-    ModelAdmin (to, from) _ ->
-      model ! [Cmd.map from (Admin.commands (to perms))]
+    ModelAdmin proof _ ->
+      model ! [Cmd.map (symmCast proof) (Admin.commands (cast proof perms))]
 
 -- View
 
@@ -71,18 +71,18 @@ view model =
     ModelUser _ { name } ->
       viewName name
 
-    ModelMod (_, from) { name } ->
+    ModelMod proof { name } ->
       div
         [vertical]
         [ viewName name
-        , Html.App.map from (Mod.view Mod.Warn)
+        , Html.App.map (symmCast proof) (Mod.view Mod.Warn)
         ]
 
-    ModelAdmin (_, from) { name } ->
+    ModelAdmin proof { name } ->
       div
         [vertical]
         [ viewName name
-        , Html.App.map from (Admin.view Admin.Delete)
+        , Html.App.map (symmCast proof) (Admin.view Admin.Delete)
         ]
 
 vertical : Attribute a
