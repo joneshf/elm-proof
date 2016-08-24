@@ -1,5 +1,5 @@
 {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "summary": "Prove properties about elm programs at compile-time.",
     "repository": "https://github.com/joneshf/elm-proof.git",
     "license": "BSD3",
